@@ -17,10 +17,14 @@ Route::get('/', 'HomeController@index')->name('index');
 
 Route::get('/contacts', 'HomeController@contacts')->name('contacts');
 
+Route::get('/posts', 'PostController@index')->name('posts.index');
+
 Auth::routes(['register' => false]);
 
 Route::middleware('auth')->namespace('Admin')->prefix('admin')->name('admin.')->group(function() {
     Route::get('/', 'HomeController@index')->name('index');
 });
 
-Route::resource('admin/posts', 'Admin\PostController');
+Route::resource('admin/posts', 'Admin\PostController', [
+    'as' => 'admin'
+]);
