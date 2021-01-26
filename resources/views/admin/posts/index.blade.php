@@ -29,7 +29,15 @@
                                         <td>{{ $post->title }}</td>
                                         <td>{{ $post->author }}</td>
                                         <td>
-
+                                            <a href="#" class="btn btn-info">
+                                                Dettagli
+                                            </a>
+                                            <a href="#" class="btn btn-warning">
+                                                Modifica
+                                            </a>
+                                            <a href="#" class="btn btn-danger">
+                                                Elimina
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
