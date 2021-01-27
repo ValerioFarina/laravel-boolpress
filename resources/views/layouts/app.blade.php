@@ -34,18 +34,18 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('index') }}">
+                            <a class="nav-link {{ Request::route()->getName() == 'index' ? 'active' : '' }}" href="{{ route('index') }}">
                                 Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('contacts') }}">
+                            <a class="nav-link {{ Request::route()->getName() == 'contacts' ? 'active' : '' }}" href="{{ route('contacts') }}">
                                 Contatti
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('posts.index') }}">
-                                Posts
+                            <a class="nav-link {{ Request::route()->getName() == 'posts.index' ? 'active' : '' }}" href="{{ route('posts.index') }}">
+                                Post
                             </a>
                         </li>
                     </ul>
