@@ -37,7 +37,7 @@
                                             <a href="{{ route('admin.posts.show', ['post' => $post->slug]) }}" class="btn btn-info">
                                                 Dettagli
                                             </a>
-                                            <a href="#" class="btn btn-warning">
+                                            <a href="{{ route('admin.posts.edit', ['post' => $post->slug]) }}" class="btn btn-warning">
                                                 Modifica
                                             </a>
                                             <a href="#" class="btn btn-danger">

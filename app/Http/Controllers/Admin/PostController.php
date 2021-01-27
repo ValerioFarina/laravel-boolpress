@@ -89,10 +89,20 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+     public function edit($slug) {
+         $post = Post::where('slug', $slug)->first();
+
+         if ($post) {
+             $data = [
+                 'post' => $post,
+                 'categories' => Category::all()
+             ];
+             return view('admin.posts.edit', $data);
+         }
+
+         abort(404);
+
+     }
 
     /**
      * Update the specified resource in storage.
