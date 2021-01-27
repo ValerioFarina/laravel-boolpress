@@ -12,7 +12,7 @@
         <div class="row">
             @foreach ($posts as $post)
                 <div class="col-12 col-xs-6 col-md-4 col-lg-3 mb-3">
-                    <div class="post border p-3 h-100">
+                    <a class="post border p-3 h-100 d-block" href="{{ route('posts.show', ['slug' => $post->slug]) }}">
                         <ul class="h-100">
                             <li>
                                 Titolo:
@@ -23,7 +23,7 @@
                                 {{ $post->author }}
                             </li>
                         </ul>
-                    </div>
+                    </a>
                 </div>
             @endforeach
         </div>
