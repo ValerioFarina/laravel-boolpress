@@ -6,8 +6,13 @@
     <div class="container">
         @if (count($posts))
             <div class="row">
-                <div class="col-12">
+                <div class="col-6">
                     <h1>Lista posts</h1>
+                </div>
+                <div class="col-6 text-right">
+                    <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">
+                        Crea nuovo post
+                    </a>
                 </div>
             </div>
             <div class="row">
