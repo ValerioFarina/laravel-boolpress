@@ -40,7 +40,7 @@
                         <textarea name="content" rows="8" cols="80" class="form-control">{{ $post->content }}</textarea>
                     </div>
                     <button type="submit" class="btn btn-success">
-                        Salva post
+                        Salva modifiche
                     </button>
                 </form>
             </div>

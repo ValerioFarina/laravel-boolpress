@@ -111,9 +111,23 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->all();
+        if ($data["title"] != $post->title) {
+            $slug = Str::slug($data["title"], '-');
+            $new_slug = $slug;
+            $slug_found = Post::where('slug', $new_slug)->first();
+            $counter = 1;
+            while ($slug_found) {
+                $new_slug = $slug . '-' . $counter;
+                $counter++;
+                $slug_found = Post::where('slug', $new_slug)->first();
+            }
+            $data["slug"] = $new_slug;
+        }
+        $post->update($data);
+        return redirect()->route('admin.posts.show', ['post' => $post->slug]);
     }
 
     /**
