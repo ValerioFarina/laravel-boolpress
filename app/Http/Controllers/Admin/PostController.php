@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Post;
 use App\Category;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -45,7 +46,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $slug = Str::slug($data["title"], '-');
+        $new_slug = $slug;
+        $slug_found = Post::where('slug', $new_slug)->first();
+        $counter = 1;
+        while ($slug_found) {
+            $new_slug = $slug . '-' . $counter;
+            $counter++;
+            $slug_found = Post::where('slug', $new_slug)->first();
+        }
+        $data["slug"] = $new_slug;
+        $new_post = new Post();
+        $new_post->fill($data);
+        $new_post->save();
+        return redirect()->route('admin.posts.show', ['post' => $new_post->slug]);
     }
 
     /**
