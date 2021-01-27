@@ -40,9 +40,13 @@
                                             <a href="{{ route('admin.posts.edit', ['post' => $post->slug]) }}" class="btn btn-warning">
                                                 Modifica
                                             </a>
-                                            <a href="#" class="btn btn-danger">
-                                                Elimina
-                                            </a>
+                                            <form action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="POST" class="d-inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger" type="submit">
+                                                    Elimina
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
