@@ -18,7 +18,7 @@
                     </li>
                     <li>
                         <strong>Categoria:</strong>
-                        {{ $post->category->name }}
+                        {{ $post->category ? $post->category->name : '' }}
                     </li>
                     <li>
                         <strong>Content:</strong>
