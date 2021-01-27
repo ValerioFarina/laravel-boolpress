@@ -47,16 +47,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $slug = Str::slug($data["title"], '-');
-        $new_slug = $slug;
-        $slug_found = Post::where('slug', $new_slug)->first();
-        $counter = 1;
-        while ($slug_found) {
-            $new_slug = $slug . '-' . $counter;
-            $counter++;
-            $slug_found = Post::where('slug', $new_slug)->first();
-        }
-        $data["slug"] = $new_slug;
+        $data["slug"] = getPostSlug($data["title"]);
         $new_post = new Post();
         $new_post->fill($data);
         $new_post->save();
@@ -114,17 +105,8 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
-        if ($data["title"] != $post->title) {
-            $slug = Str::slug($data["title"], '-');
-            $new_slug = $slug;
-            $slug_found = Post::where('slug', $new_slug)->first();
-            $counter = 1;
-            while ($slug_found) {
-                $new_slug = $slug . '-' . $counter;
-                $counter++;
-                $slug_found = Post::where('slug', $new_slug)->first();
-            }
-            $data["slug"] = $new_slug;
+        if (strtolower($data["title"]) != strtolower($post->title)) {
+            $data["slug"] = getPostSlug($data["title"]);
         }
         $post->update($data);
         return redirect()->route('admin.posts.show', ['post' => $post->slug]);
