@@ -29,7 +29,7 @@
                                         <td>{{ $post->title }}</td>
                                         <td>{{ $post->author }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-info">
+                                            <a href="{{ route('admin.posts.show', ['post' => $post->slug]) }}" class="btn btn-info">
                                                 Dettagli
                                             </a>
                                             <a href="#" class="btn btn-warning">

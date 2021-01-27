@@ -17,7 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $data = [
-            'posts' => Post::select('id', 'title', 'author')->get()
+            'posts' => Post::select('id', 'title', 'author', 'slug')->get()
         ];
         return view('admin.posts.index', $data);
     }
@@ -49,10 +49,19 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+     public function show($slug) {
+         $post = Post::where('slug', $slug)->first();
+
+         if ($post) {
+             $data = [
+                 'post' => $post
+             ];
+             return view('admin.posts.show', $data);
+         }
+
+         abort(404);
+
+     }
 
     /**
      * Show the form for editing the specified resource.
