@@ -27,7 +27,7 @@ class PostsTableSeeder extends Seeder
         for ($i = 0; $i < 100; $i++) {
             $new_post = new Post();
             $new_post->title = $faker->sentence();
-            $new_post->slug = getPostSlug($new_post->title);
+            $new_post->slug = getSlug($new_post->title, 'Post');
             $new_post->author = $faker->name();
             $new_post->content = $faker->text(500);
             $new_post->category_id = $category_ids[array_rand($category_ids)];

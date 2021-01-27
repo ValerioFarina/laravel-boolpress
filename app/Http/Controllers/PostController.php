@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Post;
 
 class PostController extends Controller
@@ -12,6 +11,7 @@ class PostController extends Controller
         $data = [
             'posts' => Post::select('title', 'author', 'slug')->get()
         ];
+
         return view('guest.posts.index', $data);
     }
 
@@ -26,6 +26,5 @@ class PostController extends Controller
         }
 
         abort(404);
-
     }
 }

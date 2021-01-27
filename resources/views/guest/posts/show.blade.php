@@ -21,7 +21,7 @@
                         {{ $post->category ? $post->category->name : '' }}
                     </li>
                     <li>
-                        <strong>Content:</strong>
+                        <strong>Contenuto:</strong>
                         {{ $post->content }}
                     </li>
                 </ul>

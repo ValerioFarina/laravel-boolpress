@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Post;
 use App\Category;
 use Illuminate\Support\Str;
@@ -21,6 +20,7 @@ class PostController extends Controller
         $data = [
             'posts' => Post::select('id', 'title', 'author', 'slug')->get()
         ];
+
         return view('admin.posts.index', $data);
     }
 
@@ -47,7 +47,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data["slug"] = getPostSlug($data["title"]);
+        $data["slug"] = getSlug($data["title"], 'Post');
         $new_post = new Post();
         $new_post->fill($data);
         $new_post->save();
@@ -71,7 +71,6 @@ class PostController extends Controller
          }
 
          abort(404);
-
      }
 
     /**
@@ -92,7 +91,6 @@ class PostController extends Controller
          }
 
          abort(404);
-
      }
 
     /**
@@ -105,9 +103,11 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
+
         if (strtolower($data["title"]) != strtolower($post->title)) {
-            $data["slug"] = getPostSlug($data["title"]);
+            $data["slug"] = getSlug($data["title"], 'Post');
         }
+
         $post->update($data);
         return redirect()->route('admin.posts.show', ['post' => $post->slug]);
     }

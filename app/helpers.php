@@ -2,16 +2,30 @@
 
 use Illuminate\Support\Str;
 use App\Post;
+use App\Category;
 
-function getPostSlug($post_title) {
-    $slug = Str::slug($post_title, '-');
+function slugExists($slug, $model) {
+    switch ($model) {
+        case 'Post':
+            $result = Post::where('slug', $slug)->first();
+            break;
+
+        case 'Category':
+            $result = Category::where('slug', $slug)->first();
+            break;
+    }
+    return $result;
+}
+
+function getSlug($string, $model) {
+    $slug = Str::slug($string, '-');
     $new_slug = $slug;
-    $slug_found = Post::where('slug', $new_slug)->first();
+    $slug_found = slugExists($new_slug, $model);
     $counter = 1;
     while ($slug_found) {
         $new_slug = $slug . '-' . $counter;
         $counter++;
-        $slug_found = Post::where('slug', $new_slug)->first();
+        $slug_found = slugExists($new_slug, $model);
     }
     return $new_slug;
 }
