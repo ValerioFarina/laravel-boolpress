@@ -94,9 +94,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->all();
+
+        if (strtolower($data["name"]) != strtolower($category->name)) {
+            $data["slug"] = getSlug($data["name"], 'Category');
+            $category->update($data);
+        } elseif ($data["name"] != $category->name) {
+            $category->update($data);
+        }
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
