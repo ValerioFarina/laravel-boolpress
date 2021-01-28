@@ -39,7 +39,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data["slug"] = getSlug($data["name"], 'Category');
+        $new_category = new Category();
+        $new_category->fill($data);
+        $new_category->save();
+        return redirect()->route('admin.categories.index');
     }
 
     /**

@@ -13,11 +13,11 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <form method="POST" action="#">
+                <form method="POST" action="{{ route('admin.categories.store') }}">
                     @csrf
                     <div class="form-group">
                         <label>Nome categoria: </label>
-                        <input type="text" name="title" class="form-control">
+                        <input type="text" name="name" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-success">
                         Salva categoria
