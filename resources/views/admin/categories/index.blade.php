@@ -34,8 +34,8 @@
                                         <th scope="row">{{ $category->id }}</th>
                                         <td>{{ $category->name }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-info">
-                                                Dettagli
+                                            <a href="{{ route('admin.categories.show', ['category' => $category->slug]) }}" class="btn btn-info">
+                                                Post
                                             </a>
                                             <a href="#" class="btn btn-warning">
                                                 Modifica

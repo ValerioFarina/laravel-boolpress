@@ -9,6 +9,8 @@ $(document).ready(function() {
         var selectedPost = $(this).parent('td').parent('tr');
         var postId = selectedPost.attr("id");
 
+        var currentCategory = $('.category-posts-list-title').attr('id');
+
         Swal.fire({
             title: `Sei sicuro di voler eliminare il post #${postId} ?`,
             text: "",
@@ -34,6 +36,8 @@ $(document).ready(function() {
                             $('.posts-list').remove();
 
                             $('.posts-list-title').text('Nessun post presente');
+
+                            $('.category-posts-list-title').text("Nessun post nella categoria '" + currentCategory + "'");
                         }
 
                         Swal.fire(

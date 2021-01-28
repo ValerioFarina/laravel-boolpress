@@ -48,9 +48,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $category = Category::where('slug', $slug)->first();
+
+        if ($category) {
+            $data = [
+                'category' => $category
+            ];
+            return view('admin.categories.show', $data);
+        }
+
+        abort(404);
     }
 
     /**

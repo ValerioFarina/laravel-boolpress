@@ -40940,6 +40940,7 @@ $(document).ready(function () {
     e.preventDefault();
     var selectedPost = $(this).parent('td').parent('tr');
     var postId = selectedPost.attr("id");
+    var currentCategory = $('.category-posts-list-title').attr('id');
     Swal.fire({
       title: "Sei sicuro di voler eliminare il post #".concat(postId, " ?"),
       text: "",
@@ -40964,6 +40965,7 @@ $(document).ready(function () {
             if (!$.trim($('.posts-list table tbody').html())) {
               $('.posts-list').remove();
               $('.posts-list-title').text('Nessun post presente');
+              $('.category-posts-list-title').text("Nessun post nella categoria '" + currentCategory + "'");
             }
 
             Swal.fire('Eliminato!', "Il post #".concat(postId, " \xE8 stato eliminato."), 'success');
