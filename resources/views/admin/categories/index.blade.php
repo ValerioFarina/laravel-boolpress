@@ -37,7 +37,7 @@
                                             <a href="{{ route('admin.categories.show', ['category' => $category->slug]) }}" class="btn btn-info">
                                                 Post
                                             </a>
-                                            <a href="#" class="btn btn-warning">
+                                            <a href="{{ route('admin.categories.edit', ['category' => $category->slug]) }}" class="btn btn-warning">
                                                 Modifica
                                             </a>
                                             <a href="#" class="btn btn-danger delete-category">

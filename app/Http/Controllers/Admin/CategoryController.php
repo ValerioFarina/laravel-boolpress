@@ -73,9 +73,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $category = Category::where('slug', $slug)->first();
+
+        if ($category) {
+            $data = [
+                'category' => $category
+            ];
+            return view('admin.categories.edit', $data);
+        }
+
+        abort(404);
     }
 
     /**
