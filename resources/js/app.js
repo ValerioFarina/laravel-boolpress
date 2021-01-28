@@ -7,7 +7,7 @@ $(document).ready(function() {
     $('a.delete-post').click(function(e){
         e.preventDefault();
         var selectedPost = $(this).parent('td').parent('tr');
-        var postId = selectedPost.data("id");
+        var postId = selectedPost.attr("id");
 
         Swal.fire({
             title: `Sei sicuro di voler eliminare il post #${postId} ?`,
@@ -29,7 +29,13 @@ $(document).ready(function() {
                     },
                     success: function() {
                         selectedPost.remove();
-                        
+
+                        if (!$.trim($('.posts-list table tbody').html())) {
+                            $('.posts-list').remove();
+
+                            $('.posts-list-title').text('Nessun post presente');
+                        }
+
                         Swal.fire(
                             'Eliminato!',
                             `Il post #${postId} è stato eliminato.`,

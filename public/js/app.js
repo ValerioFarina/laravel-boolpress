@@ -40939,7 +40939,7 @@ $(document).ready(function () {
   $('a.delete-post').click(function (e) {
     e.preventDefault();
     var selectedPost = $(this).parent('td').parent('tr');
-    var postId = selectedPost.data("id");
+    var postId = selectedPost.attr("id");
     Swal.fire({
       title: "Sei sicuro di voler eliminare il post #".concat(postId, " ?"),
       text: "",
@@ -40960,6 +40960,12 @@ $(document).ready(function () {
           },
           success: function success() {
             selectedPost.remove();
+
+            if (!$.trim($('.posts-list table tbody').html())) {
+              $('.posts-list').remove();
+              $('.posts-list-title').text('Nessun post presente');
+            }
+
             Swal.fire('Eliminato!', "Il post #".concat(postId, " \xE8 stato eliminato."), 'success');
           },
           error: function error() {
