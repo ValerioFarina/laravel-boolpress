@@ -23,7 +23,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ Request::route()->getName() == 'posts.index' ? 'active' : '' }}" href="{{ route('posts.index') }}">
-                            Post
+                            Posts
                         </a>
                     </li>
                 </ul>

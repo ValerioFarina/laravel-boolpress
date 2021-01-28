@@ -17,7 +17,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="albums-list">
+                    <div class="posts-list">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -29,7 +29,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($posts as $post)
-                                    <tr>
+                                    <tr data-id="{{ $post->id }}">
                                         <th scope="row">{{ $post->id }}</th>
                                         <td>{{ $post->title }}</td>
                                         <td>{{ $post->author }}</td>
@@ -40,13 +40,9 @@
                                             <a href="{{ route('admin.posts.edit', ['post' => $post->slug]) }}" class="btn btn-warning">
                                                 Modifica
                                             </a>
-                                            <form action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="POST" class="d-inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger" type="submit">
-                                                    Elimina
-                                                </button>
-                                            </form>
+                                            <a href="#" class="btn btn-danger delete-post" type="submit">
+                                                Elimina
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
