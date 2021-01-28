@@ -11,7 +11,7 @@
                 </h1>
             </div>
             <div class="col-6 text-right">
-                <a href="#" class="btn btn-primary">
+                <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
                     Crea nuova categoria
                 </a>
             </div>
