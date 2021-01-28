@@ -25,5 +25,8 @@ Auth::routes(['register' => false]);
 
 Route::middleware('auth')->namespace('Admin')->prefix('admin')->name('admin.')->group(function() {
     Route::get('/', 'HomeController@index')->name('index');
+
     Route::resource('/posts', 'PostController');
+
+    Route::resource('/categories', 'CategoryController');
 });
