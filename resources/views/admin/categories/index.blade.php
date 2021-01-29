@@ -40,9 +40,13 @@
                                             <a href="{{ route('admin.categories.edit', ['category' => $category->slug]) }}" class="btn btn-warning">
                                                 Modifica
                                             </a>
-                                            <a href="#" class="btn btn-danger delete-category">
-                                                Elimina
-                                            </a>
+                                            <form action="{{ route('admin.categories.destroy', ['category' => $category->id]) }}" method="POST" class="d-inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger delete-category">
+                                                    Elimina
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
