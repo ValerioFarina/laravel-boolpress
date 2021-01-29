@@ -3,6 +3,7 @@
 use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
+use App\Tag;
 
 function slugExists($slug, $model) {
     switch ($model) {
@@ -12,6 +13,10 @@ function slugExists($slug, $model) {
 
         case 'Category':
             $result = Category::where('slug', $slug)->first();
+            break;
+
+        case 'Tag':
+            $result = Tag::where('slug', $slug)->first();
             break;
     }
     return $result;
