@@ -40936,13 +40936,44 @@ var Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/di
 
 var token = $("meta[name='csrf-token']").attr("content");
 $(document).ready(function () {
-  $('a.delete-post').click(function (e) {
+  $('a.delete-item').click(function (e) {
     e.preventDefault();
-    var selectedPost = $(this).parent('td').parent('tr');
-    var postId = selectedPost.attr("id");
-    var currentCategory = $('.category-posts-list-title').attr('id');
+    var selectedItem = $(this).parent('td').parent('tr');
+    var itemId = selectedItem.attr("id");
+    var itemType = selectedItem.data('item-type');
+
+    switch (itemType) {
+      case 'post':
+      case 'post-category':
+        var uri = 'posts';
+        var question = "Sei sicuro di voler eliminare il post #".concat(itemId, " ?");
+        var confirmationMessage = "Il post #".concat(itemId, " \xE8 stato eliminato.");
+        var itemsContainer = $('.posts-list');
+
+        switch (itemType) {
+          case 'post':
+            var noItemsMessage = 'Nessun post presente';
+            break;
+
+          case 'post-category':
+            var currentCategory = $('.list-title').data('category-name');
+            var noItemsMessage = "Nessun post presente nella categoria '" + currentCategory + "'";
+            break;
+        }
+
+        break;
+
+      case 'category':
+        var uri = 'categories';
+        var question = "Sei sicuro di voler eliminare la categoria #".concat(itemId, " ?");
+        var confirmationMessage = "La categoria #".concat(itemId, " \xE8 stata eliminata.");
+        var itemsContainer = $('.categories-list');
+        var noItemsMessage = 'Nessuna categoria presente';
+        break;
+    }
+
     Swal.fire({
-      title: "Sei sicuro di voler eliminare il post #".concat(postId, " ?"),
+      title: question,
       text: "",
       icon: 'warning',
       showCancelButton: true,
@@ -40953,22 +40984,21 @@ $(document).ready(function () {
     }).then(function (result) {
       if (result.isConfirmed) {
         $.ajax({
-          url: "/admin/posts/".concat(postId),
+          url: "/admin/".concat(uri, "/").concat(itemId),
           type: 'POST',
           data: {
             "_token": token,
             "_method": "DELETE"
           },
           success: function success() {
-            selectedPost.remove();
+            selectedItem.remove();
 
-            if (!$.trim($('.posts-list table tbody').html())) {
-              $('.posts-list').remove();
-              $('.posts-list-title').text('Nessun post presente');
-              $('.category-posts-list-title').text("Nessun post nella categoria '" + currentCategory + "'");
+            if (!$.trim($('table tbody').html())) {
+              itemsContainer.remove();
+              $('.list-title').text(noItemsMessage);
             }
 
-            Swal.fire('Eliminato!', "Il post #".concat(postId, " \xE8 stato eliminato."), 'success');
+            Swal.fire('Eliminato!', confirmationMessage, 'success');
           },
           error: function error() {
             console.log('errore');

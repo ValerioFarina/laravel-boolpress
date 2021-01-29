@@ -6,8 +6,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 id="{{ $category->name }}" class="category-posts-list-title">
-                    {{ count($category->posts) ? "Lista post nella categoria '" . $category->name . "'" : "Nessun post nella categoria '" . $category->name . "'" }}
+                <h1 data-category-name="{{ $category->name }}" class="list-title">
+                    {{ count($category->posts) ? "Lista post nella categoria '" . $category->name . "'" : "Nessun post presente nella categoria '" . $category->name . "'" }}
                 </h1>
             </div>
         </div>
@@ -26,7 +26,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($category->posts as $post)
-                                    <tr id="{{ $post->id }}">
+                                    <tr id="{{ $post->id }}" data-item-type="post-category">
                                         <th scope="row">{{ $post->id }}</th>
                                         <td>{{ $post->title }}</td>
                                         <td>{{ $post->author }}</td>
@@ -37,7 +37,7 @@
                                             <a href="{{ route('admin.posts.edit', ['post' => $post->slug]) }}" class="btn btn-warning">
                                                 Modifica
                                             </a>
-                                            <a href="#" class="btn btn-danger delete-post">
+                                            <a href="#" class="btn btn-danger delete-item">
                                                 Elimina
                                             </a>
                                         </td>

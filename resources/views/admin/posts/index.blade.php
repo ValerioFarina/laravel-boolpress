@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <h1 class="posts-list-title">
+                <h1 class="list-title">
                     {{ count($posts) ? 'Lista posts' : 'Nessun post presente' }}
                 </h1>
             </div>
@@ -31,7 +31,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($posts as $post)
-                                    <tr id="{{ $post->id }}">
+                                    <tr id="{{ $post->id }}" data-item-type="post">
                                         <th scope="row">{{ $post->id }}</th>
                                         <td>{{ $post->title }}</td>
                                         <td>{{ $post->author }}</td>
@@ -42,7 +42,7 @@
                                             <a href="{{ route('admin.posts.edit', ['post' => $post->slug]) }}" class="btn btn-warning">
                                                 Modifica
                                             </a>
-                                            <a href="#" class="btn btn-danger delete-post">
+                                            <a href="#" class="btn btn-danger delete-item">
                                                 Elimina
                                             </a>
                                         </td>

@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                <h1 class="categories-list-title">
+                <h1 class="list-title">
                     {{ count($categories) ? 'Lista categorie' : 'Nessuna categoria presente' }}
                 </h1>
             </div>
@@ -30,7 +30,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($categories as $category)
-                                    <tr id="{{ $category->id }}">
+                                    <tr id="{{ $category->id }}" data-item-type="category">
                                         <th scope="row">{{ $category->id }}</th>
                                         <td>{{ $category->name }}</td>
                                         <td>
@@ -40,13 +40,9 @@
                                             <a href="{{ route('admin.categories.edit', ['category' => $category->slug]) }}" class="btn btn-warning">
                                                 Modifica
                                             </a>
-                                            <form action="{{ route('admin.categories.destroy', ['category' => $category->id]) }}" method="POST" class="d-inline-block">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger delete-category">
-                                                    Elimina
-                                                </button>
-                                            </form>
+                                            <a href="#" class="btn btn-danger delete-item">
+                                                Elimina
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
