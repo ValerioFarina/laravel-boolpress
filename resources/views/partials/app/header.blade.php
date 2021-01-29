@@ -26,6 +26,11 @@
                             Posts
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::route()->getName() == 'categories.index' ? 'active' : '' }}" href="{{ route('categories.index') }}">
+                            Categorie
+                        </a>
+                    </li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
