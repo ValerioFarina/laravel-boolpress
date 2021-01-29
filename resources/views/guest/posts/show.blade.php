@@ -18,7 +18,11 @@
                     </li>
                     <li>
                         <strong>Categoria:</strong>
-                        {{ $post->category ? $post->category->name : '' }}
+                        @if ($post->category)
+                            <a href="{{ route('categories.show', ['slug' => $post->category->slug]) }}">
+                                {{ $post->category->name }}
+                            </a>
+                        @endif
                     </li>
                     <li>
                         <strong>Contenuto:</strong>
