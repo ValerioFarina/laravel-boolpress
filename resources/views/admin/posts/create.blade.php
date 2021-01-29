@@ -33,6 +33,17 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label>Tag: </label>
+                        @foreach ($tags as $tag)
+                            <div class="form-check">
+                                <input name="tags[]" class="form-check-input" type="checkbox" value="{{ $tag->id }}">
+                                <label class="form-check-label">
+                                    {{ $tag->name }}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="form-group">
                         <label>Contenuto: </label>
                         <textarea name="content" rows="8" cols="80" class="form-control"></textarea>
                     </div>
