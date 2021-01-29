@@ -90,7 +90,8 @@ class PostController extends Controller
          if ($post) {
              $data = [
                  'post' => $post,
-                 'categories' => Category::all()
+                 'categories' => Category::all(),
+                 'tags' => Tag::all()
              ];
              return view('admin.posts.edit', $data);
          }
