@@ -25,6 +25,12 @@
                         @endif
                     </li>
                     <li>
+                        <strong>Tag:</strong>
+                        @foreach ($post->tags as $tag)
+                            {{ !$loop->last ? $tag->name . ', ' : $tag->name }}
+                        @endforeach
+                    </li>
+                    <li>
                         <strong>Contenuto:</strong>
                         {{ $post->content }}
                     </li>
