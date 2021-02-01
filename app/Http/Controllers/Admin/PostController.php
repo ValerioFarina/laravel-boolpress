@@ -115,6 +115,13 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $request->validate([
+            'title' => 'required|max:255',
+            'author' => 'required|max:50',
+            'content' => 'required',
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'exists:tags,id'
+        ]);
         $data = $request->all();
 
         if (strtolower($data["title"]) != strtolower($post->title)) {
