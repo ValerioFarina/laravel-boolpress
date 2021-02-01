@@ -48,6 +48,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|max:255',
+            'author' => 'required|max:50',
+            'content' => 'required',
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'exists:tags,id'
+        ]);
         $data = $request->all();
         $data["slug"] = getSlug($data["title"], 'Post');
         $new_post = new Post();
