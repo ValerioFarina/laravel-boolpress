@@ -30,7 +30,10 @@
                                 <strong>API token:</strong>
                                 {{ Auth::user()->api_token }}
                             @else
-                                <button class="btn btn-success">Genera API token</button>
+                                <form method="POST" action="{{ route('admin.profile.generate-token') }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">Genera API token</button>
+                                </form>
                             @endif
                         </li>
                     </ul>
