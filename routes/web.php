@@ -30,6 +30,8 @@ Auth::routes(['register' => false]);
 Route::middleware('auth')->namespace('Admin')->prefix('admin')->name('admin.')->group(function() {
     Route::get('/', 'HomeController@index')->name('index');
 
+    Route::get('/profile', 'HomeController@profile')->name('profile');
+
     Route::resource('/posts', 'PostController');
 
     Route::resource('/categories', 'CategoryController');
