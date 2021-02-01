@@ -99,6 +99,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
         $data = $request->all();
 
         if (strtolower($data["name"]) != strtolower($category->name)) {
