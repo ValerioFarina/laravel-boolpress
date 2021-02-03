@@ -22,12 +22,12 @@
                         </ul>
                     </div>
                 @endif
-                <form method="POST" action="{{ route('admin.categories.update', ['category' => $category->id]) }}">
+                <form id="create-update-category" method="POST" action="{{ route('admin.categories.update', ['category' => $category->id]) }}">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
                         <label>Nome categoria: </label>
-                        <input type="text" name="name" class="form-control" value="{{ old('name', $category->name) }}">
+                        <input type="text" name="name" class="form-control" value="{{ old('name', $category->name) }}" required maxlength="255">
                         @error ('name')
                             <div class="alert alert-danger">
                                 {{ $message }}

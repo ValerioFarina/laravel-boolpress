@@ -22,12 +22,12 @@
                         </ul>
                     </div>
                 @endif
-                <form method="POST" action="{{ route('admin.posts.update', ['post' => $post->id]) }}">
+                <form id="create-update-post" method="POST" action="{{ route('admin.posts.update', ['post' => $post->id]) }}">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
                         <label>Titolo: </label>
-                        <input type="text" name="title" class="form-control" value="{{ old('title', $post->title) }}">
+                        <input type="text" name="title" class="form-control" value="{{ old('title', $post->title) }}" maxlength="255" required>
                         @error ('title')
                             <div class="alert alert-danger">
                                 {{ $message }}
@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label>Autore: </label>
-                        <input type="text" name="author" class="form-control" value="{{ old('author', $post->author) }}">
+                        <input type="text" name="author" class="form-control" value="{{ old('author', $post->author) }}" maxlength="50" required>
                         @error ('author')
                             <div class="alert alert-danger">
                                 {{ $message }}
@@ -64,9 +64,9 @@
                         @foreach ($tags as $tag)
                             <div class="form-check">
                                 @if ($errors->any())
-                                    <input name="tags[]" class="form-check-input" type="checkbox" value="{{ $tag->id }}" {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                                    <input name="tags[{{ $tag->id }}]" class="form-check-input" type="checkbox" value="{{ $tag->id }}" {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
                                 @else
-                                    <input name="tags[]" class="form-check-input" type="checkbox" value="{{ $tag->id }}" {{ $post->tags->contains($tag) ? "checked" : "" }}>
+                                    <input name="tags[{{ $tag->id }}]" class="form-check-input" type="checkbox" value="{{ $tag->id }}" {{ $post->tags->contains($tag) ? "checked" : "" }}>
                                 @endif
                                 <label class="form-check-label">
                                     {{ $tag->name }}
@@ -81,7 +81,7 @@
                     </div>
                     <div class="form-group">
                         <label>Contenuto: </label>
-                        <textarea name="content" rows="8" cols="80" class="form-control">{{ old('content', $post->content) }}</textarea>
+                        <textarea name="content" rows="8" cols="80" class="form-control" required>{{ old('content', $post->content) }}</textarea>
                         @error ('content')
                             <div class="alert alert-danger">
                                 {{ $message }}

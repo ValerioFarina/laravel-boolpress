@@ -22,11 +22,11 @@
                         </ul>
                     </div>
                 @endif
-                <form method="POST" action="{{ route('admin.posts.store') }}">
+                <form id="create-update-post" method="POST" action="{{ route('admin.posts.store') }}">
                     @csrf
-                    <div class="form-group">
+                    <div class="form-group title">
                         <label>Titolo: </label>
-                        <input type="text" name="title" class="form-control" value="{{ old('title') }}">
+                        <input type="text" name="title" class="form-control" value="{{ old('title') }}" maxlength="255">
                         @error ('title')
                             <div class="alert alert-danger">
                                 {{ $message }}
@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group">
                         <label>Autore: </label>
-                        <input type="text" name="author" class="form-control" value="{{ old('author') }}">
+                        <input type="text" name="author" class="form-control" value="{{ old('author') }}" maxlength="50" required>
                         @error ('author')
                             <div class="alert alert-danger">
                                 {{ $message }}
@@ -62,7 +62,7 @@
                         <label>Tag: </label>
                         @foreach ($tags as $tag)
                             <div class="form-check">
-                                <input name="tags[]" class="form-check-input" type="checkbox" value="{{ $tag->id }}" {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                                <input name="tags[{{ $tag->id }}]" class="form-check-input" type="checkbox" value="{{ $tag->id }}" {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
                                 <label class="form-check-label">
                                     {{ $tag->name }}
                                 </label>
@@ -76,7 +76,7 @@
                     </div>
                     <div class="form-group">
                         <label>Contenuto: </label>
-                        <textarea name="content" rows="8" cols="80" class="form-control">{{ old('content') }}</textarea>
+                        <textarea name="content" rows="8" cols="80" class="form-control" required>{{ old('content') }}</textarea>
                         @error ('content')
                             <div class="alert alert-danger">
                                 {{ $message }}
