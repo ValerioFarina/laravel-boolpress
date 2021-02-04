@@ -16,6 +16,14 @@
                         <strong>Autore:</strong>
                         {{ $post->author }}
                     </li>
+                    <li class="{{ $post->poster_path ? 'w-25' : ''}}">
+                        <strong>Immagine copertina:</strong>
+                        @if ($post->poster_path)
+                            <img src="{{ asset("storage/" . $post->poster_path) }}" alt="immagine copertina del post" class="d-block mw-100">
+                        @else
+                            <span>immagine non presente</span>
+                        @endif
+                    </li>
                     <li>
                         <strong>Categoria:</strong>
                         @if ($post->category)
