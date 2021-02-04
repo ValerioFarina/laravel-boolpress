@@ -56,11 +56,13 @@ class PostController extends Controller
             'tags' => 'exists:tags,id'
         ]);
         $data = $request->all();
+        // we generate a slug based on the post's title
         $data["slug"] = getSlug($data["title"], 'Post');
         $new_post = new Post();
         $new_post->fill($data);
         $new_post->save();
         if (array_key_exists('tags', $data)) {
+            // if some tags have been checked, we associate these tags with the newly generated post
             $new_post->tags()->sync($data["tags"]);
         }
         return redirect()->route('admin.posts.show', ['post' => $new_post->slug]);
@@ -125,11 +127,13 @@ class PostController extends Controller
         $data = $request->all();
 
         if (strtolower($data["title"]) != strtolower($post->title)) {
+            // if the post's title has been changed, we generate a new slug for the post
             $data["slug"] = getSlug($data["title"], 'Post');
         }
 
         $post->update($data);
         if (!array_key_exists('tags', $data)) {
+            // if all the tags have been unchecked, we put the tags' array equal to an empty array
             $data["tags"] = [];
         }
         $post->tags()->sync($data["tags"]);

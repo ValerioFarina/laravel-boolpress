@@ -42660,12 +42660,14 @@ $(document).ready(function () {
 
 var Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 
-var token = $("meta[name='csrf-token']").attr("content");
+var token = $("meta[name='csrf-token']").attr("content"); // whenever the delete button is clicked
+
 $('a.delete-item').click(function (e) {
-  e.preventDefault();
+  e.preventDefault(); // we get the selected item (i.e. the item we want to delete), its id and its type
+
   var selectedItem = $(this).parent('td').parent('tr');
   var itemId = selectedItem.attr("id");
-  var itemType = selectedItem.data('item-type');
+  var itemType = selectedItem.data('item-type'); // based on the type of the item we want to delete, we define all the remaining variables we need
 
   switch (itemType) {
     case 'post':
@@ -42695,7 +42697,8 @@ $('a.delete-item').click(function (e) {
       var itemsContainer = $('.categories-list');
       var noItemsMessage = 'Nessuna categoria presente';
       break;
-  }
+  } // we display a window which requires the user to confirm or deny the deletion of the selected item
+
 
   Swal.fire({
     title: question,
@@ -42708,6 +42711,7 @@ $('a.delete-item').click(function (e) {
     cancelButtonText: 'No, non eliminare'
   }).then(function (result) {
     if (result.isConfirmed) {
+      // if the deletion is confirmed, we make an AJAX request, in order to delete the item from the database
       $.ajax({
         url: "/admin/".concat(uri, "/").concat(itemId),
         type: 'POST',
@@ -42716,12 +42720,17 @@ $('a.delete-item').click(function (e) {
           "_method": "DELETE"
         },
         success: function success() {
+          // once the item has been removed from the database, we remove it from the view
           selectedItem.remove();
 
           if (!$.trim($('table tbody').html())) {
-            itemsContainer.remove();
+            // if the displayed table containing the items is empty,
+            // we remove from the view the table
+            itemsContainer.remove(); // and instead of the table we display a message which warns the user that no more items are available in the database
+
             $('.list-title').text(noItemsMessage);
-          }
+          } // finally, we display a window that confirms the item's deletion
+
 
           Swal.fire('Eliminato!', confirmationMessage, 'success');
         },

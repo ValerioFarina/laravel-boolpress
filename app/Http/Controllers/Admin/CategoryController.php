@@ -43,6 +43,7 @@ class CategoryController extends Controller
             'name' => 'required|max:255',
         ]);
         $data = $request->all();
+        // we generate a slug based on the name of the selected category
         $data["slug"] = getSlug($data["name"], 'Category');
         $new_category = new Category();
         $new_category->fill($data);
@@ -105,9 +106,13 @@ class CategoryController extends Controller
         $data = $request->all();
 
         if (strtolower($data["name"]) != strtolower($category->name)) {
+            // if the name of the category has been changed, we generate a new slug
             $data["slug"] = getSlug($data["name"], 'Category');
+            // and then we update both the name and the slug of the category
             $category->update($data);
         } elseif ($data["name"] != $category->name) {
+            // if the name of the category has been changed only with respect to its font case (e.g. from "hello" to "HELLO")
+            // we update the name of the category, but not its slug
             $category->update($data);
         }
 
