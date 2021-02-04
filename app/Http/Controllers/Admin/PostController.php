@@ -54,7 +54,8 @@ class PostController extends Controller
             'author' => 'required|max:50',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'exists:tags,id'
+            'tags' => 'exists:tags,id',
+            'poster_path' => 'nullable|image|max:512'
         ]);
         $data = $request->all();
         // we generate a slug based on the post's title
