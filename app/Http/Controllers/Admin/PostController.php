@@ -8,6 +8,7 @@ use App\Post;
 use App\Category;
 use App\Tag;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -58,6 +59,10 @@ class PostController extends Controller
         $data = $request->all();
         // we generate a slug based on the post's title
         $data["slug"] = getSlug($data["title"], 'Post');
+        if (array_key_exists('poster_path', $data)) {
+            $poster_path = Storage::put('post_covers', $data["poster_path"]);
+            $data['poster_path'] = $poster_path;
+        }
         $new_post = new Post();
         $new_post->fill($data);
         $new_post->save();

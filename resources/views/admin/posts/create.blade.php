@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label>Immagine di copertina: </label>
-                        <input type="file" class="form-control-file">
+                        <input type="file" class="form-control-file" name="poster_path">
                     </div>
                     <div class="form-group">
                         <label>Categoria: </label>

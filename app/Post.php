@@ -11,7 +11,8 @@ class Post extends Model
         'author',
         'category_id',
         'content',
-        'slug'
+        'slug',
+        'poster_path'
     ];
 
     public function category() {
