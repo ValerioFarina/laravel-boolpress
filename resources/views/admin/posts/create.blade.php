@@ -22,7 +22,7 @@
                         </ul>
                     </div>
                 @endif
-                <form id="create-update-post" method="POST" action="{{ route('admin.posts.store') }}" enctype="multipart/form-data">
+                <form id="create-update-post" method="POST" enctype="multipart/form-data" action="{{ route('admin.posts.store') }}">
                     @csrf
                     <div class="form-group title">
                         <label>Titolo: </label>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label>Immagine di copertina: </label>
-                        <input type="file" class="form-control-file" name="poster_path">
+                        <input type="file" class="form-control-file" name="image">
                     </div>
                     <div class="form-group">
                         <label>Categoria: </label>

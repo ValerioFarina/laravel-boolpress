@@ -55,13 +55,13 @@ class PostController extends Controller
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'exists:tags,id',
-            'poster_path' => 'nullable|image|max:512'
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:512'
         ]);
         $data = $request->all();
         // we generate a slug based on the post's title
         $data["slug"] = getSlug($data["title"], 'Post');
-        if (array_key_exists('poster_path', $data)) {
-            $poster_path = Storage::put('post_covers', $data["poster_path"]);
+        if (array_key_exists('image', $data)) {
+            $poster_path = Storage::put('post_covers', $data["image"]);
             $data['poster_path'] = $poster_path;
         }
         $new_post = new Post();
@@ -128,13 +128,19 @@ class PostController extends Controller
             'author' => 'required|max:50',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'exists:tags,id'
+            'tags' => 'exists:tags,id',
+            'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:512'
         ]);
         $data = $request->all();
 
         if (strtolower($data["title"]) != strtolower($post->title)) {
             // if the post's title has been changed, we generate a new slug for the post
             $data["slug"] = getSlug($data["title"], 'Post');
+        }
+
+        if (array_key_exists('image', $data)) {
+            $poster_path = Storage::put('post_covers', $data["image"]);
+            $data['poster_path'] = $poster_path;
         }
 
         $post->update($data);

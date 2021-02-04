@@ -22,7 +22,7 @@
                         </ul>
                     </div>
                 @endif
-                <form id="create-update-post" method="POST" action="{{ route('admin.posts.update', ['post' => $post->id]) }}">
+                <form id="create-update-post" method="POST" action="{{ route('admin.posts.update', ['post' => $post->id]) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -42,6 +42,13 @@
                                 {{ $message }}
                             </div>
                         @enderror
+                    </div>
+                    <div class="form-group {{ $post->poster_path ? 'w-25' : '' }}">
+                        <label>Immagine di copertina: </label>
+                        @if ($post->poster_path)
+                            <img src="{{ asset("storage/" . $post->poster_path) }}" alt="immagine copertina del post" class="d-block mw-100">
+                        @endif
+                        <input type="file" class="form-control-file" name="image">
                     </div>
                     <div class="form-group">
                         <label>Categoria: </label>
